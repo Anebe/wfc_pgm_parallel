@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "wfc.h": "c",
+        "tile.h": "c",
+        "pgm.h": "c",
+        "omp.h": "c"
+    }
+}

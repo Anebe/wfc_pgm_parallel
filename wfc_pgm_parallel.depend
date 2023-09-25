@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1695596580 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<omp.h>
+	"wfc.h"
+	"pgm.h"
+	"tile.h"
+
+1695577123 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.h
+	<stdbool.h>
+	"tile.h"
+
+1695577123 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.h
+	<stdio.h>
+	<stdlib.h>
+
+1695577123 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.h
+
+1695583542 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"pgm.h"
+	<omp.h>
+
+1695583443 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.c
+	<stdio.h>
+	<stdlib.h>
+	"tile.h"
+	<omp.h>
+
+1695596532 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<omp.h>
+	"wfc.h"
+	"tile.h"
+
