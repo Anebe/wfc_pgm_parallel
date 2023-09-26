@@ -11,6 +11,7 @@ typedef struct Tileset
     int ***tile;
 } *Tileset;
 
+Tileset new_tileset(unsigned int, unsigned int);
 Tileset open_tileset(char *);
 void print_tile(Tileset, int);
 void print_tileset(Tileset);

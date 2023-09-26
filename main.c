@@ -9,10 +9,10 @@
 
 #include "cJSON.h"
 
-#define MAX_THREADS 4
-#define MIN_SIZE_CELL 70
-#define MAX_SIZE_CELL 110
-#define QTD_RESULT 5
+#define MAX_THREADS 5
+#define MIN_SIZE_CELL 10
+#define MAX_SIZE_CELL 20
+#define QTD_RESULT 1
 
 Pgm convertWfc(World world, Tileset tileset)
 {
@@ -68,10 +68,9 @@ int main()
             waveFuctionCollapse(t, w);
             Pgm p = convertWfc(w, t);
             char *name = malloc(sizeof(char) * 30);
-            sprintf(name, "result/teste%d-%d.pgm", i,j);
+            sprintf(name, "result/imagem/wfc%d-%d.pgm", i,j);
             pgm_file(name, p);
             free(name);
-            
             
             #pragma omp parallel sections
             {

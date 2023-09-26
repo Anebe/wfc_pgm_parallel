@@ -3,6 +3,8 @@
         "wfc.h": "c",
         "tile.h": "c",
         "pgm.h": "c",
-        "omp.h": "c"
+        "omp.h": "c",
+        "compare": "c",
+        "type_traits": "c"
     }
 }
