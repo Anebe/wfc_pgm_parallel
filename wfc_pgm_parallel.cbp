@@ -17,6 +17,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-pthread" />
+					<Add option="-lgomp" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -35,6 +36,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="cJSON.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cJSON.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

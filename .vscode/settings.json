@@ -5,6 +5,10 @@
         "pgm.h": "c",
         "omp.h": "c",
         "compare": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "stdio.h": "c",
+        "util.h": "c",
+        "stdlib.h": "c",
+        "string.h": "c"
     }
 }

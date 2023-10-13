@@ -1,41 +1,63 @@
 # depslib dependency file v1.0
-1695596580 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\main.c
+1697206803 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<omp.h>
+	"pgm.h"
 	"wfc.h"
+	"tile.h"
+	"cJSON.h"
+
+1697052902 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<omp.h>
 	"pgm.h"
 	"tile.h"
 
-1695577123 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.h
-	<stdbool.h>
-	"tile.h"
-
-1695577123 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.h
+1697050487 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.h
 	<stdio.h>
 	<stdlib.h>
+	<omp.h>
 
-1695577123 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.h
-
-1695583542 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.c
+1697062683 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<omp.h>
+
+1697062207 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.c
 	"pgm.h"
-	<omp.h>
 
-1695583443 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.c
-	<stdio.h>
-	<stdlib.h>
+1697050494 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.c
 	"tile.h"
-	<omp.h>
 
-1695596532 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.c
-	<stdio.h>
-	<stdlib.h>
-	<stdbool.h>
-	<omp.h>
+1697214679 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.c
 	"wfc.h"
+
+1697052191 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\util.h
+	<stdio.h>
+	<stdlib.h>
 	"tile.h"
+	"pgm.h"
+	"wfc.h"
+
+1695645790 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\cjson.h
+	<stddef.h>
+
+1697051714 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\util.c
+	"util.h"
+
+1696537827 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\cjson.c
+	<string.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<limits.h>
+	<ctype.h>
+	<float.h>
+	<locale.h>
+	"cJSON.h"
 

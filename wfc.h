@@ -1,9 +1,13 @@
 #ifndef WFC_H
 #define WFC_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#include "tile.h"
+#include <omp.h>
 
+#include "pgm.h"
+#include "tile.h"
 
 #define MAX_ATTEMPTS 100
 
@@ -27,5 +31,6 @@ void collapse(World, Tileset);
 void waveFuctionCollapse(Tileset, World);
 void print_world(World);
 void free_world(World);
+Pgm convertWfc(World , Tileset );
 
 #endif

@@ -10,7 +10,7 @@
                 "-fopenmp",
                 "${workspaceFolder}/*.c",
                 "-o",
-                "${workspaceFolder}\\${fileBasenameNoExtension}.exe",
+                "${workspaceFolder}\\bin\\Debug\\wfc_pgm_parallel.exe",
                 "-I${workspaceFolder}\\",
                 "-pthread",
                 "-lgomp"

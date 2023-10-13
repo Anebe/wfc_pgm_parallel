@@ -5,7 +5,7 @@
             "name": "Build and Run",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\bin\\Debug\\wfc_pgm_parallel.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -17,7 +17,7 @@
             "name": "Run",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\bin\\Debug\\wfc_pgm_parallel.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -28,7 +28,7 @@
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\bin\\Debug\\wfc_pgm_parallel.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -49,25 +49,6 @@
                 }
             ],
             "preLaunchTask": "C Build parallel"
-        },
-        {
-            "name": "(Window) build and run",
-            "type": "cppvsdbg",
-            "request": "launch",
-            //"preLaunchTask": "C Build parallel",
-            "program": "cmd",
-            "args": [
-                "/k", 
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                //"&",
-                //"pause",
-                "&",
-                "exit"
-            ],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "console": "externalTerminal"
         }
     ]
 }

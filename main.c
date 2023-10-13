@@ -3,44 +3,17 @@
 #include <time.h>
 #include <omp.h>
 
-#include "wfc.h"
 #include "pgm.h"
+#include "wfc.h"
 #include "tile.h"
 
 #include "cJSON.h"
 
-#define MAX_THREADS 5
-#define MIN_SIZE_CELL 10
-#define MAX_SIZE_CELL 20
+#define MAX_THREADS 8
+#define MIN_THREADS 1
+#define MAX_SIZE_CELL 3
 #define QTD_RESULT 1
-
-Pgm convertWfc(World world, Tileset tileset)
-{
-    int linha = world->height * tileset->size;
-    int coluna = world->width * tileset->size;
-
-    Pgm result = new_pgm(linha, coluna);
-
-    int a = 0, b = 0;
-    for (int y = 0; y < world->height; y++)
-    {
-        for (int i = 0; i < tileset->size; i++)
-        {
-            for (int x = 0; x < world->width; x++)
-            {
-                for (int j = 0; j < tileset->size; j++)
-                {
-                    int index = world->map[y][x].collapsedValue;
-                    result->data[a][b++] = tileset->tile[(index != -1) ? index : 0][i][j];
-                }
-            }
-            b = 0;
-            a++;
-        }
-    }
-    return result;
-}
-
+#define REPEAT 3
 
 int main()
 {
@@ -49,55 +22,66 @@ int main()
     double start_time, end_time;
     cJSON *rootArray = cJSON_CreateArray();
 
-    for (int i = MIN_SIZE_CELL; i <= MAX_SIZE_CELL; i+=(MAX_SIZE_CELL-MIN_SIZE_CELL)/QTD_RESULT)
+    int increment = (MAX_SIZE_CELL)/QTD_RESULT;
+
+    for(int i = MAX_SIZE_CELL; i > 0; i-= increment)
     {
         cJSON *elementObject = cJSON_CreateObject();
         cJSON *resultArray = cJSON_CreateArray();
-        
-        for (int j = 1; j <= MAX_THREADS; j++)
+
+        cJSON_AddNumberToObject(elementObject, "cell_height", i);
+        cJSON_AddNumberToObject(elementObject, "cell_width", i);
+
+        for (int j = MIN_THREADS; j <= MAX_THREADS; j+=j)
         {
-            if(j == 1){
-                cJSON_AddNumberToObject(elementObject, "cell_height", i);
-                cJSON_AddNumberToObject(elementObject, "cell_width", i);
-            }
             omp_set_num_threads(j);
-            start_time = omp_get_wtime();
-
-            Tileset t = open_tileset("tileset/line.txt");
-            World w = new_world(i, i, t->qtd);
-            waveFuctionCollapse(t, w);
-            Pgm p = convertWfc(w, t);
-            char *name = malloc(sizeof(char) * 30);
-            sprintf(name, "result/imagem/wfc%d-%d.pgm", i,j);
-            pgm_file(name, p);
-            free(name);
-            
-            #pragma omp parallel sections
-            {
-                #pragma omp section
-                {
-                    free_world(w);
-                }
-                #pragma omp section
-                {
-                    free_pgm(p);
-                }
-                #pragma omp section
-                {
-                    free_tileset(t);
-                }
-            }
-
-            end_time = omp_get_wtime();
-            double total_time = end_time - start_time;
 
             cJSON *resultItem = cJSON_CreateObject();
+            cJSON *timeArray = cJSON_CreateArray();
+
             cJSON_AddNumberToObject(resultItem, "threads", j);
-            cJSON_AddNumberToObject(resultItem, "time", total_time);
+            for(int k = 0; k < REPEAT; k++)
+            {
+                Tileset t = open_tileset("tileset/line.txt");
+                World w = new_world(i, i, t->qtd);
+                //------------------------------------------------
+                start_time = omp_get_wtime();
+                waveFuctionCollapse(t, w);
+                end_time = omp_get_wtime();
+                //------------------------------------------------
+                Pgm p = convertWfc(w, t);
+                char *name = malloc(sizeof(char) * 100);
+                sprintf(name, "result/imagem/wfc(C-%dx%d)(T-%d)(R-%d).pgm", i, i, j, k);
+                pgm_file(name, p);
+                free(name);
+
+                #pragma omp parallel sections
+                {
+                    #pragma omp section
+                    {
+                        free_world(w);
+                    }
+                    #pragma omp section
+                    {
+                        free_pgm(p);
+                    }
+                    #pragma omp section
+                    {
+                        free_tileset(t);
+                    }
+                }
+
+                double total_time = end_time - start_time;
+                cJSON *time = cJSON_CreateNumber(total_time);
+                cJSON_AddItemToArray(timeArray, time);
+            }
+            cJSON_AddItemToObject(resultItem, "time", timeArray);
             cJSON_AddItemToArray(resultArray, resultItem);
         }
+
         cJSON_AddItemToObject(elementObject, "result", resultArray);
-        cJSON_AddItemToArray(rootArray, elementObject); 
+        cJSON_AddItemToArray(rootArray, elementObject);
+
     }
 
     char *json_string = cJSON_Print(rootArray);
@@ -110,5 +94,6 @@ int main()
     free(json_string);
 
     system("python graficos.py");
+
     return 0;
 }

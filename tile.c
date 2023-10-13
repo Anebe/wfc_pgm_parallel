@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "tile.h"
-#include <omp.h>
 
 Tileset new_tileset(unsigned int qtd, unsigned int size){
     Tileset tileset = (Tileset) malloc(sizeof(struct Tileset));
@@ -86,4 +83,5 @@ void free_tileset(Tileset tileset){
     free(tileset->tile);
     free(tileset);
 }
+
 
