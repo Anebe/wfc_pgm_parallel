@@ -90,6 +90,7 @@ void propagateCollapse(int collapseTarget, int y, int x, World world, Tileset ti
                 world->map[y-1][x].options[i] != 0 &&
                 tileset->tile[i][size-1][j] != tileset->tile[collapseTarget][0][j]
                 ){
+                    #pragma omp atomic write
                     world->map[y-1][x].options[i] = 0;
                 }
             }
@@ -101,6 +102,7 @@ void propagateCollapse(int collapseTarget, int y, int x, World world, Tileset ti
                 world->map[y+1][x].options[i] != 0 &&
                 tileset->tile[i][0][j] != tileset->tile[collapseTarget][size-1][j]
                 ){
+                    #pragma omp atomic write
                     world->map[y+1][x].options[i] = 0;
                 }
                 
@@ -113,6 +115,7 @@ void propagateCollapse(int collapseTarget, int y, int x, World world, Tileset ti
                 world->map[y][x-1].options[i] != 0 &&
                 tileset->tile[i][j][size-1] != tileset->tile[collapseTarget][j][0]
                 ){
+                    #pragma omp atomic write
                     world->map[y][x-1].options[i] = 0;
                 }
                 
@@ -124,6 +127,7 @@ void propagateCollapse(int collapseTarget, int y, int x, World world, Tileset ti
                 if(world->map[y][x+1].collapsedValue == -1 && 
                 world->map[y][x+1].options[i] != 0 &&
                 tileset->tile[i][j][0] != tileset->tile[collapseTarget][j][size-1]){
+                    #pragma omp atomic write
                     world->map[y][x+1].options[i] = 0;
                 }
             }
@@ -149,9 +153,10 @@ void collapse(World world, Tileset tileset) {
     for (int j = 0; j < tileset->qtd; j++)
     {
         if(world->map[lowestY][lowestX].options[j] == 1 ){
-            #pragma omp critical (add_possibility)
+            #pragma omp critical
             {
-                entropyPossibility[index++] = j;
+                entropyPossibility[index] = j;
+                index += 1;
             }
         }
     }
@@ -159,15 +164,31 @@ void collapse(World world, Tileset tileset) {
     int collapseValue = entropyPossibility[rand() % lowestTotalEntropy];
     free(entropyPossibility);
 
-    #pragma omp parallel for
-    for (int i = 0; i < tileset->qtd; i++) {
-        world->map[lowestY][lowestX].options[i] = 0;
-    }
-    
-    world->map[lowestY][lowestX].options[collapseValue] = 1;
-    world->map[lowestY][lowestX].collapsedValue = collapseValue;
+    #pragma omp parallel 
+    {
+        int priv_x = lowestX;
+        int priv_y = lowestY;
+        Cell map = world->map[priv_y][priv_x];
+        int priv_qtd = tileset->qtd;
 
-    propagateCollapse(collapseValue, lowestY, lowestX, world, tileset);
+        #pragma omp for nowait
+        for (int i = 0; i < priv_qtd; i++) {
+            map.options[i] = 0;
+        }
+    
+        #pragma omp sections
+        {
+            #pragma omp section
+            {
+                propagateCollapse(collapseValue, lowestY, lowestX, world, tileset);
+            }
+            #pragma omp section
+            {
+                world->map[lowestY][lowestX].options[collapseValue] = 1;
+                world->map[lowestY][lowestX].collapsedValue = collapseValue;
+            }
+        }
+    }
 }
 
 void waveFuctionCollapse(Tileset tileset, World world){
