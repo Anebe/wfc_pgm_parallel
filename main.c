@@ -11,14 +11,15 @@
 
 #define MAX_THREADS 8
 #define MIN_THREADS 1
-#define MAX_SIZE_CELL 3
+#define MAX_SIZE_CELL 50
 #define QTD_RESULT 1
-#define REPEAT 3
+#define REPEAT 2
+
 
 int main()
 {
     srand((unsigned int)time(NULL));
-
+    omp_set_dynamic(0);
     double start_time, end_time;
     cJSON *rootArray = cJSON_CreateArray();
 
@@ -42,7 +43,7 @@ int main()
             cJSON_AddNumberToObject(resultItem, "threads", j);
             for(int k = 0; k < REPEAT; k++)
             {
-                Tileset t = open_tileset("tileset/line.txt");
+                Tileset t = open_tileset("tileset/short line.txt");
                 World w = new_world(i, i, t->qtd);
                 //------------------------------------------------
                 start_time = omp_get_wtime();
@@ -55,17 +56,18 @@ int main()
                 pgm_file(name, p);
                 free(name);
 
-                #pragma omp parallel sections
+                //#pragma omp parallel sections
                 {
-                    #pragma omp section
+
+                    //#pragma omp section
                     {
                         free_world(w);
                     }
-                    #pragma omp section
+                    //#pragma omp section
                     {
                         free_pgm(p);
                     }
-                    #pragma omp section
+                    //#pragma omp section
                     {
                         free_tileset(t);
                     }
@@ -97,3 +99,5 @@ int main()
 
     return 0;
 }
+
+
