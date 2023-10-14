@@ -23,7 +23,7 @@ def media_aritmetica(dados):
         plt.grid(True)
         
         plt.savefig(f'result/Média({conjunto["cell_height"]}x{conjunto["cell_width"]}).png', bbox_inches="tight")
-        
+        plt.clf()
 
 def desvio_padrao(dados):
     for conjunto in dados:
@@ -54,7 +54,8 @@ def desvio_padrao(dados):
         plt.grid(False)
         plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), title="Legendas")
         plt.savefig(f'result/Desvio padrão({conjunto["cell_height"]}x{conjunto["cell_width"]}).png', bbox_inches="tight")
-        
+        plt.clf()
+
 def calc_speedup(times):
     times_invert = list(map(list, zip(*times)))
     
@@ -81,7 +82,7 @@ def grafico_speedup(dados):
         plt.grid(True)
         plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), title="Legendas")
         plt.savefig(f'result/SpeedUp({conjunto["cell_height"]}x{conjunto["cell_width"]}).png', bbox_inches="tight")
-        
+        plt.clf()
 
 def grafico_eficiencia(dados):
     for conjunto in dados:
@@ -102,7 +103,7 @@ def grafico_eficiencia(dados):
         plt.grid(True)
         plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), title="Legendas")
         plt.savefig(f'result/Eficiência({conjunto["cell_height"]}x{conjunto["cell_width"]}).png', bbox_inches="tight")
-        
+        plt.clf()
 
 def grafico_thread_tempo(dados):
     for conjunto in dados:
@@ -123,7 +124,7 @@ def grafico_thread_tempo(dados):
         plt.grid(True)
         plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), title="Legendas")
         plt.savefig(f'result/Thread x time({conjunto["cell_height"]}x{conjunto["cell_width"]}).png', bbox_inches="tight")
-        
+        plt.clf()
 
 def grafico_dispercao(dados):
     for conjunto in dados:
@@ -139,7 +140,7 @@ def grafico_dispercao(dados):
         plt.xlabel('Tempo (segundos)')
         plt.title(f'Gráfico de disperção Threads vs Tempo({conjunto["cell_height"]}x{conjunto["cell_width"]})')
         plt.savefig(f'result/Disperção thread x time({conjunto["cell_height"]}x{conjunto["cell_width"]}).png', bbox_inches="tight")
-        
+        plt.clf()
         
 def csv_data(dados):
     with open('output.csv', 'w', newline='') as csvfile:
@@ -160,17 +161,17 @@ with open('result/dados.json', 'r') as arquivo_json:
     dados = json.load(arquivo_json)
     
     grafico_eficiencia(dados)
-    plt.clf()
+    
     grafico_thread_tempo(dados)
-    plt.clf()
+    
     grafico_dispercao(dados)
-    plt.clf()
+    
     desvio_padrao(dados)
-    plt.clf()
+    
     media_aritmetica(dados)
-    plt.clf()
+    
     grafico_speedup(dados)
-    plt.clf()
+    
     
 
     
