@@ -25,7 +25,7 @@ typedef struct World {
 
 World new_world(int, int, int);
 bool isPossibleFinish(World, Tileset);
-void findLowestEntropy(World, Tileset, int *, int *);
+void findLowestEntropy(World, Tileset, int *, int *, int *);
 void propagateCollapse(const int , const int, const int, World, const Tileset);
 int isCollapsed(World);
 void collapse(World, Tileset);
