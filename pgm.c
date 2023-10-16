@@ -1,7 +1,8 @@
 
 #include "pgm.h"
 
-Pgm new_pgm(int height, int width){
+Pgm new_pgm(int height, int width)
+{
     Pgm pgm = (Pgm) malloc(sizeof(struct Pgm));
 
     pgm->height = height;
@@ -15,9 +16,12 @@ Pgm new_pgm(int height, int width){
     return pgm;
 }
 
-int getGrayColor(int val){
-    if(val > 0){
-        if(val < MAX_GRAY){
+int getGrayColor(int val)
+{
+    if(val > 0)
+    {
+        if(val < MAX_GRAY)
+        {
             return MAX_GRAY/val;
         }
         return MAX_GRAY;
@@ -25,13 +29,15 @@ int getGrayColor(int val){
     return 0;
 }
 
-void pgm_file(char *path, Pgm pgm){
+void pgm_file(char *path, Pgm pgm)
+{
     FILE *arq;
     arq = fopen(path, "w");
 
     int max_gray = higher_number(pgm);
 
-    if(arq != NULL){
+    if(arq != NULL)
+    {
         fprintf(arq, "P2\n%d %d\n%d\n", pgm->width, pgm->height, max_gray);
         for (int i = 0; i < pgm->height; i++)
         {
@@ -42,7 +48,8 @@ void pgm_file(char *path, Pgm pgm){
                     fprintf(arq, " ");
 
             }
-            if(i != pgm->height-1){
+            if(i != pgm->height-1)
+            {
                 fprintf(arq, "\n");
             }
         }
@@ -51,7 +58,8 @@ void pgm_file(char *path, Pgm pgm){
 
 }
 
-void printPgm(Pgm pgm){
+void printPgm(Pgm pgm)
+{
     for (int i = 0; i < pgm->height; i++)
     {
         for (int j = 0; j < pgm->width; j++)
@@ -64,7 +72,8 @@ void printPgm(Pgm pgm){
 
 }
 
-void free_pgm(Pgm pgm){
+void free_pgm(Pgm pgm)
+{
     for (int i = 0; i < pgm->height; i++)
     {
         free(pgm->data[i]);
@@ -73,7 +82,8 @@ void free_pgm(Pgm pgm){
     free(pgm);
 }
 
-int higher_number(Pgm p){
+int higher_number(Pgm p)
+{
     int result = p->data[0][0];
     for (int i = 0; i < p->height; i++)
     {

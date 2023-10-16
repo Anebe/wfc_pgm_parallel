@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1697291606 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\main.c
+1697478080 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -9,7 +9,7 @@
 	"tile.h"
 	"cJSON.h"
 
-1697292200 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.h
+1697457927 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -17,24 +17,24 @@
 	"pgm.h"
 	"tile.h"
 
-1697050487 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.h
+1697313446 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.h
 	<stdio.h>
 	<stdlib.h>
 	<omp.h>
 
-1697062683 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.h
+1697313446 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<omp.h>
 
-1697062207 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.c
+1697472524 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\pgm.c
 	"pgm.h"
 
-1697050494 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.c
+1697313446 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\tile.c
 	"tile.h"
 
-1697293997 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.c
+1697478814 source:c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\wfc.c
 	"wfc.h"
 
 1697052191 c:\users\gabriel\documents\codigo\paralela_pc\wfc_pgm_parallel\util.h

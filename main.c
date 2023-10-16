@@ -13,7 +13,7 @@
 #define MIN_THREADS 1
 #define MAX_SIZE_CELL 50
 #define QTD_RESULT 1
-#define REPEAT 2
+#define REPEAT 3
 
 
 int main()
@@ -25,6 +25,7 @@ int main()
 
     int increment = (MAX_SIZE_CELL)/QTD_RESULT;
 
+    Tileset t = open_tileset("tileset/short line.txt");
     for(int i = MAX_SIZE_CELL; i > 0; i-= increment)
     {
         cJSON *elementObject = cJSON_CreateObject();
@@ -39,11 +40,11 @@ int main()
 
             cJSON *resultItem = cJSON_CreateObject();
             cJSON *timeArray = cJSON_CreateArray();
-
             cJSON_AddNumberToObject(resultItem, "threads", j);
+
+            
             for(int k = 0; k < REPEAT; k++)
             {
-                Tileset t = open_tileset("tileset/short line.txt");
                 World w = new_world(i, i, t->qtd);
                 //------------------------------------------------
                 start_time = omp_get_wtime();
@@ -53,27 +54,14 @@ int main()
                 Pgm p = convertWfc(w, t);
                 char *name = malloc(sizeof(char) * 100);
                 sprintf(name, "result/imagem/wfc(C-%dx%d)(T-%d)(R-%d).pgm", i, i, j, k);
-                pgm_file(name, p);
+                //pgm_file(name, p);
+
                 free(name);
-
-                //#pragma omp parallel sections
-                {
-
-                    //#pragma omp section
-                    {
-                        free_world(w);
-                    }
-                    //#pragma omp section
-                    {
-                        free_pgm(p);
-                    }
-                    //#pragma omp section
-                    {
-                        free_tileset(t);
-                    }
-                }
-
+                free_world(w);
+                free_pgm(p);
+                
                 double total_time = end_time - start_time;
+                printf("Cell(%dx%d)\nthreads:%d\ntentativa:%d\ntempo:%lf\n\n",i,i,j,k, total_time);
                 cJSON *time = cJSON_CreateNumber(total_time);
                 cJSON_AddItemToArray(timeArray, time);
             }
@@ -85,6 +73,7 @@ int main()
         cJSON_AddItemToArray(rootArray, elementObject);
 
     }
+    free_tileset(t);
 
     char *json_string = cJSON_Print(rootArray);
     FILE *arquivo = fopen("result/dados.json", "w");
